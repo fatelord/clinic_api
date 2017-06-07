@@ -3,26 +3,28 @@
  * Created by PhpStorm.
  * User: KRONOS
  * Date: 3/31/2017
- * Time: 14:27
+ * Time: 14:11
  */
 
 namespace app\api\modules\v1\controllers;
 
-use app\api\modules\v1\models\COMPANYMODEL;
-use Yii;
+
+use app\api\modules\v1\models\BOOTHMODEL;
+use app\api\modules\v1\models\CLINIC_MODEL;
+use yii\data\ActiveDataProvider;
 use yii\rest\ActiveController;
-use yii\web\UploadedFile;
+use yii\filters\auth\HttpBasicAuth;
 
 /**
- * Class CompanyController
+ * Class BoothController
  * @package app\api\modules\v1\controllers
  */
-class CompanyController extends ActiveController
+class ClinicController extends ActiveController
 {
     /**
      * @var string
      */
-    public $modelClass = 'app\api\modules\v1\models\COMPANYMODEL';
+    public $modelClass = 'app\api\modules\v1\models\CLINIC_MODEL';
 
     public function behaviors()
     {
@@ -46,28 +48,17 @@ class CompanyController extends ActiveController
     }
 
     /**
-     * Endpoint for uploading the company logo
-     * @return array
+     * Get all booths under a particular event
+     * @param $id
+     * @return array|\yii\db\ActiveRecord[]
      */
-    public function actionLogo()
+    public function actionAll($id)
     {
-        //upload the company logo
-        $output = ['error' => 'No files were processed.'];
-        $logo_folder = Yii::$app->request->post('logo_folder');
+        $data = CLINIC_MODEL::find()
+            ->where(['CLINIC_ID' => $id])
+            ->all();
 
 
-        $model = new COMPANYMODEL();
-
-        if (Yii::$app->request->isPost) {
-            $model->imageFiles = UploadedFile::getInstancesByName('file'); //getInstances($model, 'file');
-
-            $t = $model->uploadLogo($logo_folder);
-
-            $output = ['file_path' => $t];
-        }
-
-        return $output; //return as array, it is encoded to json automatically
+        return $data;
     }
-
-
 }

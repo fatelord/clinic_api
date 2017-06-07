@@ -55,28 +55,22 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => [
-                        'v1/event',
-                        'v1/booth',
-                        'v1/reserve',
-                        'v1/upload',
-                        'v1/user',
-                        'v1/company',
-                        'v1/report',
+                        'v1/clinic',
+                        'v1/region',
                     ],
                     //'GET,HEAD <id:\d+>/booth' => 'booth/all-booths',
                     'tokens' => [
                         '{id}' => '<id:\\w+>',
-                        //'{code}' => '<code:\\w+>'
                     ],
                     'extraPatterns' => [
-                        'GET query' => 'query',
-                        'GET users' => 'citizens',
+                        //'GET query' => 'query',
+                        //'GET users' => 'citizens',
                         //'GET all-booths' => 'all-booths',
-                        'GET all/{id}' => 'all',
-                        'GET summary/{id}' => 'summary',
+                        //'GET all/{id}' => 'all',
+                        //'GET summary/{id}' => 'summary',
                         //post actions
-                        'POST document' => 'document',
-                        'POST logo' => 'logo',
+                        //'POST document' => 'document',
+                        //'POST logo' => 'logo',
                     ],
                 ],
             ],
